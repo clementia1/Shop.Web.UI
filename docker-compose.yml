@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  shop.web.ui
-    image: shop-react-ui
+  shop.react.ui
+    image: shop.react.ui
     build:
       context: ./
       dockerfile: Dockerfile
