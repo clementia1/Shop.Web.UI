@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  shop.ui.service
+  shop.ui.service:
     image: shopreactui
     build:
       context: ./
