@@ -13,6 +13,11 @@ const useStyles = makeStyles((theme) => ({
     },
     pageContent: {
         display: 'flex',
+    },
+    catalogueContainer: {
+        [theme.breakpoints.down('md')]: {
+            margin: 'auto'
+        }, 
     }
 }));
 
@@ -28,7 +33,7 @@ function IndexPage() {
                 <Grid xl={3} lg={3} sm={3}>
                     <Sidebar/>
                 </Grid>
-                <Grid xl={8} lg={8} sm={12}>
+                <Grid className={classes.catalogueContainer} xl={8} lg={8} sm={12}>
                     <Catalogue/>
                 </Grid>
             </Grid>

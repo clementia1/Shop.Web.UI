@@ -9,6 +9,12 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         maxWidth: '80vw',
         margin: 'auto',
+        [theme.breakpoints.up('md')]: {
+            marginLeft: 60
+        },
+        [theme.breakpoints.down('md')]: {
+            marginLeft: 'auto'
+        },
     },
     paper: {
         padding: theme.spacing(2),

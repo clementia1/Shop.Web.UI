@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 9,
         margin: '0px 32px',
         [theme.breakpoints.up('sm')]: {
-            display: 'auto',
+            display: 'inherit',
         },
         [theme.breakpoints.down('md')]: {
             display: 'none',
