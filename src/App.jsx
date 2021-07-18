@@ -1,5 +1,6 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import { AuthProvider } from 'oidc-react';
 import {createTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import {orange, purple, green} from '@material-ui/core/colors';
 import IndexPage from "./pages/IndexPage.jsx";
@@ -35,6 +36,18 @@ const theme = createTheme({
     }
 });
 
+const oidcConfig = {
+    onSignIn: () => {
+      // Redirect?
+    },
+    authority: 'http://localhost:5000',
+    clientId: 'pkce_client',
+    redirectUri: 'http://localhost:9000',
+    response_type: 'code',
+    scope: 'openid profile website.com',
+    loadUserInfo: true
+};
+
 const useStyles = makeStyles((theme) => ({
     app: {
         background: theme.palette.background.default
@@ -45,11 +58,13 @@ function App() {
     const classes = useStyles();
 
     return (
-        <ThemeProvider theme={theme}>
-            <div className={classes.app}>
-                <IndexPage/>
-            </div>
-        </ThemeProvider>
+        <AuthProvider {...oidcConfig}>
+            <ThemeProvider theme={theme}>
+                <div className={classes.app}>
+                    <IndexPage/>
+                </div>
+            </ThemeProvider>
+        </AuthProvider>
     );
 }
 

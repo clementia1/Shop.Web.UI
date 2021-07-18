@@ -15,6 +15,10 @@ const useStyles = makeStyles({
         maxWidth: 300,
         margin: 'auto',
         borderRadius: 9,
+        boxShadow: 'rgb(99 99 99 / 20%) 0px 0.02em 0.1rem 0px',
+        '&:hover': {
+            cursor: 'pointer'
+        }
     },
     title: {
         fontSize: "1.1rem",

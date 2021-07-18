@@ -30,10 +30,10 @@ function IndexPage() {
                 <Navigation/>
             </div>
             <Grid container className={classes.pageContent}>
-                <Grid xl={3} lg={3} sm={3}>
+                <Grid item xl={3} lg={3} sm={3}>
                     <Sidebar/>
                 </Grid>
-                <Grid className={classes.catalogueContainer} xl={8} lg={8} sm={12}>
+                <Grid className={classes.catalogueContainer} item xl={8} lg={8} sm={12}>
                     <Catalogue/>
                 </Grid>
             </Grid>

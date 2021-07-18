@@ -26,9 +26,9 @@ function Sidebar() {
 
     return (
         <div className={classes.sidebar}>
-            {[...Array(5)].map(() => {
+            {[...Array(5)].map((item, i) => {
                 return (
-                    <Typography className={classes.menuItem} component="div" variant="h3">
+                    <Typography key={i} className={classes.menuItem} component="div" variant="h3">
                         <Skeleton animation={false}/>
                     </Typography>
                 )
