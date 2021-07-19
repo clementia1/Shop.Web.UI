@@ -26,12 +26,17 @@ const useStyles = makeStyles((theme) => ({
 
 function Catalogue() {
     const classes = useStyles();
+    const auth = useAuth();
     const [products, setProducts] = useState([]);
 
     useEffect(async () => {
         const response = await axios.get('http://168.62.49.228/pizza/getbypage?pageNumber=1&itemsonpage=10');
         setProducts(response.data.pizza);
     }, []);
+
+    useEffect(() => {
+        console.log(auth);
+    }, [auth])
 
     return (
         <div className={classes.catalogue}>

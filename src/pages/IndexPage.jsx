@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Catalogue from "../containers/Catalogue.jsx";
 import Navigation from "../containers/Navigation.jsx";
 import Sidebar from "../containers/Sidebar.jsx";
+import LoginButton from "../components/LoginButton.jsx";
 
 const useStyles = makeStyles((theme) => ({
     indexPage: {
@@ -28,6 +29,7 @@ function IndexPage() {
         <div className={classes.indexPage}>
             <div className={classes.navbar}>
                 <Navigation/>
+                <LoginButton/>
             </div>
             <Grid container className={classes.pageContent}>
                 <Grid item xl={3} lg={3} sm={3}>

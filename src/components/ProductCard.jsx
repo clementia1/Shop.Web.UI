@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import {
     Card,
-    CardActionArea,
     CardActions,
     CardContent,
     CardMedia,
     Button,
-    Typography
+    Typography,
+    Link
 } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -15,9 +16,11 @@ const useStyles = makeStyles({
         maxWidth: 300,
         margin: 'auto',
         borderRadius: 9,
+        marginBottom: 32,
         boxShadow: 'rgb(99 99 99 / 20%) 0px 0.02em 0.1rem 0px',
         '&:hover': {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            boxShadow: 'rgb(99 99 99 / 20%) 0px 0.04em 0.5rem 0px',
         }
     },
     title: {
@@ -32,8 +35,8 @@ function ProductCard(props) {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root} elevation={0}>
-            <>
+        <Link component={RouterLink} underline="none" to={`${props.data.slug}`}>
+            <Card className={classes.root} elevation={0}>
                 <CardMedia
                     className={classes.media}
                     image={props.data.previewImageUrl}
@@ -46,16 +49,16 @@ function ProductCard(props) {
                         ₴ {props.data.price}
                     </Typography>
                 </CardContent>
-            </>
-            <CardActions>
-                <Button size="small" color="primary">
-                    Share
-                </Button>
-                <Button size="small" color="primary">
-                    Learn More
-                </Button>
-            </CardActions>
-        </Card>
+                <CardActions>
+                    <Button size="small" color="primary">
+                        Share
+                    </Button>
+                    <Button size="small" color="primary">
+                        Learn More
+                    </Button>
+                </CardActions>
+            </Card>
+        </Link>
     );
 }
 
