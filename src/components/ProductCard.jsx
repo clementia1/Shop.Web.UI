@@ -8,8 +8,10 @@ import {
     CardMedia,
     Button,
     Typography,
-    Link
+    Link,
+    Avatar
 } from '@material-ui/core';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 
 const useStyles = makeStyles({
     root: {
@@ -28,6 +30,9 @@ const useStyles = makeStyles({
     },
     media: {
         height: 200
+    },
+    ingredients: {
+        paddingTop: 16,
     }
 });
 
@@ -48,15 +53,12 @@ function ProductCard(props) {
                     <Typography variant="body2" color="textSecondary" component="p">
                         ₴ {props.data.price}
                     </Typography>
+                    <AvatarGroup max={4} className={classes.ingredients}>
+                        {props.data.ingredients.map((ingredient) => {
+                            return <Avatar alt={ingredient.name} src={ingredient.imageUrl} />
+                        })}
+                    </AvatarGroup>
                 </CardContent>
-                <CardActions>
-                    <Button size="small" color="primary">
-                        Share
-                    </Button>
-                    <Button size="small" color="primary">
-                        Learn More
-                    </Button>
-                </CardActions>
             </Card>
         </Link>
     );

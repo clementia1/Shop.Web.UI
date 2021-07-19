@@ -2,7 +2,7 @@ import React from "react";
 import {Grid} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Catalogue from "../containers/Catalogue.jsx";
-import Navigation from "../containers/Navigation.jsx";
+import Topbar from "../containers/Topbar.jsx";
 import Sidebar from "../containers/Sidebar.jsx";
 import LoginButton from "../components/LoginButton.jsx";
 
@@ -28,8 +28,7 @@ function IndexPage() {
     return (
         <div className={classes.indexPage}>
             <div className={classes.navbar}>
-                <Navigation/>
-                <LoginButton/>
+                <Topbar/>
             </div>
             <Grid container className={classes.pageContent}>
                 <Grid item xl={3} lg={3} sm={3}>
