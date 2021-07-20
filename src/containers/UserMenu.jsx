@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from 'oidc-react';
 import UserMenuContent from '../components/UserMenuContent';
 import UserMenuButton from '../components/UserMenuButton';
@@ -9,11 +9,11 @@ function UserMenu() {
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
-      };
+    };
     
-      const handleClose = () => {
+    const handleClose = () => {
         setAnchorEl(null);
-      };
+    };
 
     return (
         <>
