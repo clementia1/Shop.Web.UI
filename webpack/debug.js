@@ -53,6 +53,11 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.EnvironmentPlugin({
+            CLIENT_ID: 'pkce_client',
+            AUTHORITY: 'http://localhost:5000',
+            REDIRECT_URI: 'http://localhost:9000'
+        }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html',

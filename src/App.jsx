@@ -52,9 +52,9 @@ function App() {
             onSignIn={() => {
                 history.replace(location.pathname);
             }}
-            authority='http://168.62.49.228/auth'
-            clientId='pkce_client'
-            redirectUri='http://168.62.49.228'
+            authority={process.env.AUTHORITY}
+            clientId={process.env.CLIENT_ID}
+            redirectUri={process.env.REDIRECT_URI}
             response_type='code'
             scope='openid profile website.com'
             autoSignIn={false}>
