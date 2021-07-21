@@ -54,8 +54,8 @@ function ProductCard(props) {
                         ₴ {props.data.price}
                     </Typography>
                     <AvatarGroup max={4} className={classes.ingredients}>
-                        {props.data.ingredients.map((ingredient) => {
-                            return <Avatar alt={ingredient.name} src={ingredient.imageUrl} />
+                        {props.data.ingredients.map((ingredient, i) => {
+                            return <Avatar key={i} alt={ingredient.name} src={ingredient.imageUrl} />
                         })}
                     </AvatarGroup>
                 </CardContent>

@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
+import { observer } from "mobx-react-lite";
 import axios from "axios";
-import { useAuth } from 'oidc-react';
 import {Grid} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import ProductCard from "../components/ProductCard";
+import { useCatalogueStore } from "../stores/catalogueStore.js";
 
 const useStyles = makeStyles((theme) => ({
     catalogue: {
@@ -26,20 +27,26 @@ const useStyles = makeStyles((theme) => ({
 
 function Catalogue() {
     const classes = useStyles();
-    const [products, setProducts] = useState([]);
+    const { products, setProducts } = useCatalogueStore();
+    const [localProducts, setLocalProducts] = useState([]);
 
     useEffect(async () => {
         const response = await axios.get('http://168.62.49.228/pizza/getbypage?pageNumber=1&itemsonpage=10');
+        setLocalProducts(response.data.pizza);
         setProducts(response.data.pizza);
     }, []);
+
+    useEffect(() => {
+        console.log(products);
+    }, [products]);    
 
     return (
         <div className={classes.catalogue}>
             <Grid container spacing={3}>
-                {products.map((item, i) => {
+                {localProducts.map((item, i) => {
                     return (
                         <Grid key={i} item xl={3} lg={4} md={4} sm={6} xs={12}>
-                            <ProductCard data={item}/>
+                            <ProductCard key={i} data={item}/>
                         </Grid>
                     )
                 })}
@@ -48,4 +55,4 @@ function Catalogue() {
     );
 }
 
-export default Catalogue;
+export default observer(Catalogue);

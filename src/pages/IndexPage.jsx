@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Catalogue from "../containers/Catalogue.jsx";
 import Topbar from "../containers/Topbar.jsx";
 import Sidebar from "../containers/Sidebar.jsx";
-import LoginButton from "../components/LoginButton.jsx";
 
 const useStyles = makeStyles((theme) => ({
     indexPage: {
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function IndexPage() {
-    const classes = useStyles();
+    const classes = useStyles();    
 
     return (
         <div className={classes.indexPage}>

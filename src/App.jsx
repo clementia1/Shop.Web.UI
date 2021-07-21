@@ -4,6 +4,7 @@ import {AuthProvider} from 'oidc-react';
 import {createTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import {orange, purple, green} from '@material-ui/core/colors';
 import IndexPage from "./pages/IndexPage.jsx";
+import ProductPage from './pages/ProductPage.jsx';
 import './scss/app.scss';
 
 const theme = createTheme({
@@ -61,8 +62,11 @@ function App() {
             <ThemeProvider theme={theme}>
                 <div className={classes.app}>
                     <Switch>
-                        <Route path="/">
+                        <Route exact path="/">
                             <IndexPage/>
+                        </Route>
+                        <Route exact path="/:slug">
+                            <ProductPage/>
                         </Route>
                     </Switch>
                 </div>
