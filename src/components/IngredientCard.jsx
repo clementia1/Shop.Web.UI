@@ -20,6 +20,9 @@ const useStyles = makeStyles({
         borderRadius: 9,
         marginBottom: 32,
         boxShadow: 'rgb(99 99 99 / 20%) 0px 0.02em 0.1rem 0px',
+        "&.MuiPaper-root": {
+            backgroundColor: 'inherit',
+        }
     },
     title: {
         fontSize: "0.9rem",
