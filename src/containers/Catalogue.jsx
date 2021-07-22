@@ -34,10 +34,6 @@ function Catalogue() {
         setProducts(response.data.pizza);
     }, []);
 
-    useEffect(() => {
-        console.log(products);
-    }, [products]);    
-
     return (
         <div className={classes.catalogue}>
             <Grid container spacing={3}>

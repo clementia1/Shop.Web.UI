@@ -8,6 +8,9 @@ const productStore = observable({
         let response = await axios.get(`${process.env.PIZZA_API_URI}/getbyslug?slug=${slug}`);
         productStore.product = response.data.pizza;
         return productStore.product
+    }),
+    resetProduct: action(() => {
+        productStore.product = {};
     })
 })
 

@@ -77,6 +77,7 @@ module.exports = {
         compress: true,
         open: false,
         port: 9000,
+        hot: true,
         historyApiFallback: true,
         headers: {
             "Access-Control-Allow-Origin": "*",

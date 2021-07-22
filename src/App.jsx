@@ -10,10 +10,10 @@ import './scss/app.scss';
 const theme = createTheme({
     palette: {
         primary: {
-            main: green[500]
+            main: green[400]
         },
         secondary: {
-            main: orange[500]
+            main: green[800]
         },
         background: {
             default: '#f3f4f9'

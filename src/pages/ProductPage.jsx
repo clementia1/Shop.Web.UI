@@ -10,16 +10,23 @@ const useStyles = makeStyles((theme) => ({
     productPage: {
         display: 'flex',
         justifyContent: 'center',
-        flexDirection: 'row',
-        [theme.breakpoints.up('md')]: {
-            maxWidth: '80vw'
+        margin: 'auto',
+        [theme.breakpoints.up('sm')]: {
+            maxWidth: '80vw',
+            flexDirection: 'row',
         },
-        [theme.breakpoints.down('md')]: {
-            maxWidth: '100vw'
+        [theme.breakpoints.down('sm')]: {
+            maxWidth: '100vw',
+            flexDirection: 'column',
         },
     },
     imageContainer: {
-        maxWidth: 600,
+        [theme.breakpoints.up('md')]: {
+            maxWidth: 600,
+        },
+        [theme.breakpoints.down('md')]: {
+            maxWidth: 500,
+        },
     },
     mainImage: {
         width: "100%",
@@ -30,18 +37,35 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: 80
         },
         [theme.breakpoints.down('md')]: {
-            marginLeft: 0
+            marginLeft: 40
         },
+    },
+    ingredients: {
+        display: 'flex',
+        maxWidth: 570,
+        margin: '32px 0px',
+    },
+    price: {
+        margin: '18px 0px',
+        color: 'rgba(0, 0, 0, 0.5)',
+    },
+    weight: {
+        color: 'rgba(0, 0, 0, 0.5)',
+    },
+    headlines: {
+        margin: '0px 24px',
     }
 }));
 
 function ProductPage() {
     const params = useParams();
-    const { product, getProductBySlug } = useProductStore();
+    const { product, getProductBySlug, resetProduct } = useProductStore();
     const classes = useStyles();
 
     useEffect(() => {
         getProductBySlug(params.slug);
+
+        return () => resetProduct();
     }, []);
 
     return (
@@ -51,16 +75,22 @@ function ProductPage() {
 
             </div>
             <div className={classes.content}>
-                <Typography>{product.name}</Typography>
-                <Typography>{product.price}</Typography>
-                <Typography>{product.weight}</Typography>
-                <div className={classes.ingredients}>
+                <div className={classes.headlines}>
+                    <Typography variant="h3">{product.name}</Typography>
+                    <Typography className={classes.price} variant="h4">{product.price} UAH</Typography>
+                    <Typography className={classes.weight} variant="h5">{product.weight}g</Typography>
+                </div>
+                <Grid container spacing={3} className={classes.ingredients}>
                     {
                         product.ingredients?.map((item, i) => {
-                            return <IngredientCard key={i} data={item}/>
+                            return (
+                                <Grid key={i} item xs={3}>
+                                    <IngredientCard data={item}/>
+                                </Grid>
+                            )
                         })
                     }
-                </div>
+                </Grid>
                 <Button variant="contained" color="secondary">
                     Buy
                 </Button>
