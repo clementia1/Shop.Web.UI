@@ -28,11 +28,9 @@ const useStyles = makeStyles((theme) => ({
 function Catalogue() {
     const classes = useStyles();
     const { products, setProducts } = useCatalogueStore();
-    const [localProducts, setLocalProducts] = useState([]);
 
     useEffect(async () => {
-        const response = await axios.get('http://168.62.49.228/pizza/getbypage?pageNumber=1&itemsonpage=10');
-        setLocalProducts(response.data.pizza);
+        const response = await axios.get(`${process.env.PIZZA_API_URI}/getbypage?page=1&size=10`);
         setProducts(response.data.pizza);
     }, []);
 
@@ -43,7 +41,7 @@ function Catalogue() {
     return (
         <div className={classes.catalogue}>
             <Grid container spacing={3}>
-                {localProducts.map((item, i) => {
+                {products.map((item, i) => {
                     return (
                         <Grid key={i} item xl={3} lg={4} md={4} sm={6} xs={12}>
                             <ProductCard key={i} data={item}/>

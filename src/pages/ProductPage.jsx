@@ -1,43 +1,69 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
 import { observer } from "mobx-react-lite";
 import { useParams } from 'react-router-dom';
-import {Grid} from '@material-ui/core';
+import { Grid, Button, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useCatalogueStore } from "../stores/catalogueStore.js";
+import { useProductStore } from "../stores/productStore";
+import IngredientCard from "../components/IngredientCard";
 
 const useStyles = makeStyles((theme) => ({
     productPage: {
         display: 'flex',
         justifyContent: 'center',
-        flexDirection: 'column',
+        flexDirection: 'row',
+        [theme.breakpoints.up('md')]: {
+            maxWidth: '80vw'
+        },
+        [theme.breakpoints.down('md')]: {
+            maxWidth: '100vw'
+        },
+    },
+    imageContainer: {
+        maxWidth: 600,
     },
     mainImage: {
-
+        width: "100%",
+        borderRadius: 9,
     },
-    productDescription: {
-
+    content: {
+        [theme.breakpoints.up('md')]: {
+            marginLeft: 80
+        },
+        [theme.breakpoints.down('md')]: {
+            marginLeft: 0
+        },
     }
 }));
 
 function ProductPage() {
     const params = useParams();
-    const { getProductBySlug } = useCatalogueStore();
-    const [product, setProduct] = useState({});
+    const { product, getProductBySlug } = useProductStore();
     const classes = useStyles();
 
     useEffect(() => {
-        let item = getProductBySlug(params.slug);
-        console.log(item)
+        getProductBySlug(params.slug);
     }, []);
 
     return (
         <div className={classes.productPage}>
-            <div className={classes.mainImage}>
+            <div className={classes.imageContainer}>
+                <img className={classes.mainImage} src={product.imageUrl} alt={product.name}/>
 
             </div>
-            <div className={classes.productDescription}>
-                {product.Name}
+            <div className={classes.content}>
+                <Typography>{product.name}</Typography>
+                <Typography>{product.price}</Typography>
+                <Typography>{product.weight}</Typography>
+                <div className={classes.ingredients}>
+                    {
+                        product.ingredients?.map((item, i) => {
+                            return <IngredientCard key={i} data={item}/>
+                        })
+                    }
+                </div>
+                <Button variant="contained" color="secondary">
+                    Buy
+                </Button>
             </div>
         </div>
     );

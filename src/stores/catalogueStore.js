@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from 'axios';
 import { action, observable } from "mobx";
 
 const catalogueStore = observable({
@@ -9,8 +10,9 @@ const catalogueStore = observable({
     addProduct: action((product) => {
         catalogueStore.setProducts([product, ...catalogueStore.products]);
     }),
-    getProductBySlug: action((slug) => {
-        return catalogueStore.products.find(product => product.slug === slug)
+    getProductBySlug: action(async (slug) => {
+        let response = await axios.get(`${process.env.PIZZA_API_URI}/getbyslug?slug=${slug}`);
+        return response.data.pizza
     })
 })
 

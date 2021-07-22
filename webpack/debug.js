@@ -56,7 +56,8 @@ module.exports = {
         new webpack.EnvironmentPlugin({
             CLIENT_ID: 'pkce_client',
             AUTHORITY: 'http://localhost:5000',
-            REDIRECT_URI: 'http://localhost:9000'
+            REDIRECT_URI: 'http://localhost:9000',
+            PIZZA_API_URI: 'http://168.62.49.228/pizza'
         }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
