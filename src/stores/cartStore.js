@@ -25,7 +25,7 @@ const cartStore2 = observable({
 })
 
 class CartStore {
-    cartProducts = [{}];
+    cartProducts = [];
 
     constructor() {
         makeAutoObservable(this)
