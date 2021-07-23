@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useParams } from 'react-router-dom';
-import { Grid, Button, Typography} from '@material-ui/core';
+import { Grid, Button, Typography } from '@material-ui/core';
+import { Skeleton } from "@material-ui/lab";
 import { makeStyles } from '@material-ui/core/styles';
 import { useProductStore } from "../stores/productStore";
+import { CartStoreProvider, useCartStore } from "../stores/cartStore";
 import IngredientCard from "../components/IngredientCard";
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 
 const useStyles = makeStyles((theme) => ({
     productPage: {
@@ -12,18 +15,24 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         margin: 'auto',
         marginBottom: '20vh',
-        [theme.breakpoints.up('sm')]: {
-            maxWidth: '80vw',
+        [theme.breakpoints.up('md')]: {
+            flexDirection: 'row',
+        },
+        [theme.breakpoints.down('md')]: {
             flexDirection: 'row',
         },
         [theme.breakpoints.down('sm')]: {
-            maxWidth: '100vw',
+            width: '100vw',
             flexDirection: 'column',
+            alignItems: 'center',
         },
     },
     imageContainer: {
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up('lg')]: {
             maxWidth: 600,
+        },
+        [theme.breakpoints.up('md')]: {
+            maxWidth: 550,
         },
         [theme.breakpoints.down('md')]: {
             maxWidth: 500,
@@ -34,11 +43,17 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 9,
     },
     content: {
+        [theme.breakpoints.up('lg')]: {
+            maxWidth: 600,
+            marginLeft: 80
+        },
         [theme.breakpoints.up('md')]: {
+            maxWidth: 550,
             marginLeft: 80
         },
         [theme.breakpoints.down('md')]: {
-            marginLeft: 40
+            maxWidth: 500,
+            marginLeft: 0
         },
     },
     ingredients: {
@@ -66,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
 function ProductPage() {
     const params = useParams();
     const { product, getProductBySlug, resetProduct } = useProductStore();
+    const cartStore = useCartStore();
     const classes = useStyles();
 
     useEffect(() => {
@@ -75,33 +91,54 @@ function ProductPage() {
     }, []);
 
     return (
-        <div className={classes.productPage}>
-            <div className={classes.imageContainer}>
-                <img className={classes.mainImage} src={product.imageUrl} alt={product.name}/>
-
-            </div>
-            <div className={classes.content}>
+        <Grid container className={classes.productPage}>
+            <Grid item xl={6} lg={6} md={6} sm={6} className={classes.imageContainer}>
+                {product.imageUrl
+                    ? <img className={classes.mainImage} src={product.imageUrl} alt={product.name}/>
+                    : <Skeleton variant="rect" className={classes.imageContainer} height={400} />
+                }
+            </Grid>
+            <Grid item constainer xl={6} lg={6} md={6} sm={6} className={classes.content}>
                 <div className={classes.headlines}>
-                    <Typography variant="h3">{product.name}</Typography>
-                    <Typography className={classes.price} variant="h4">{product.price} UAH</Typography>
-                    <Typography className={classes.weight} variant="h5">{product.weight}g</Typography>
-                    <Button className={classes.buy} variant="contained" color="secondary">
-                        Buy
-                    </Button>
+                    <Typography component="div" variant="h3">
+                        {product.name ? product.name : <Skeleton />}
+                    </Typography>
+                    <Typography className={classes.price} component="div" variant="h4">
+                        {product.price ? `${product.price} UAH` : <Skeleton/>}
+                    </Typography>
+                    <Typography className={classes.weight} component="div" variant="h4">
+                        {product.weight ? `${product.weight}g` : <Skeleton/>}
+                    </Typography>
+                    {product.name
+                        ? (
+                            <Button 
+                                className={classes.buy}
+                                size="large"
+                                variant="contained"
+                                color="secondary"
+                                onClick={() => cartStore.addProduct(product)}
+                                startIcon={<ShoppingCartOutlinedIcon/>}
+                            >
+                                Buy
+                            </Button>
+                        )
+                        : <Skeleton variant="rect" className={classes.buy}/>
+                    }
+
                 </div>
                 <Grid container spacing={3} className={classes.ingredients}>
                     {
                         product.ingredients?.map((item, i) => {
                             return (
-                                <Grid key={i} item xs={3}>
+                                <Grid key={i} item xs={4} md={4} lg={3}>
                                     <IngredientCard data={item}/>
                                 </Grid>
                             )
                         })
                     }
                 </Grid>
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     );
 }
 

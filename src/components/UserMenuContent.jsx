@@ -6,14 +6,13 @@ export default function UserMenuContent(props) {
 
   return (
     <Menu
-         anchorEl={props.anchorEl}
+        anchorEl={props.anchorEl}
         getContentAnchorEl={null}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-        id={menuId}
-        keepMounted      
-        open={isMenuOpen}
-        onClose={handleMenuClose}
+        keepMounted
+        open={Boolean(props.anchorEl)}
+        onClose={props.handleClose}
       >
         <MenuItem onClick={props.handleClose}>Profile</MenuItem>
         <MenuItem onClick={props.handleClose}>My account</MenuItem>

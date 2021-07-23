@@ -1,13 +1,14 @@
 import React from 'react';
-import { useAuth } from 'oidc-react';
 import { makeStyles } from '@material-ui/core/styles';
 import { SvgIcon, IconButton, Badge } from '@material-ui/core';
+import { observer } from 'mobx-react-lite';
 import CartIcon from '../assets/icons/shopping-cart.svg';
+import { useCartStore } from '../stores/cartStore';
 
 const useStyles = makeStyles((theme) => ({
     cart: {
         padding: 12,
-        marginRight: 24,
+        marginRight: 48,
         color: 'rgba(0, 0, 0, 0.67)'
     },
     icon: {
@@ -17,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
 
 function CartButton() {
     const classes = useStyles();
-	const { signIn } = useAuth();
+    const cartStore = useCartStore();
 
 	return (
-        <IconButton className={classes.cart} aria-label="login" onClick={() => signIn()}>
-            <Badge badgeContent={17} color="secondary">
+        <IconButton className={classes.cart} aria-label="login">
+            <Badge badgeContent={cartStore.productsCount} color="secondary">
                 <SvgIcon
                     className={classes.icon}
                     component={CartIcon}
@@ -32,4 +33,4 @@ function CartButton() {
     )
 }
 
-export default CartButton;
+export default observer(CartButton);

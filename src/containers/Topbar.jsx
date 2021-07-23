@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appbar: {
     height: 64,
-    margin: '64px 0px 192px 0px',
+    margin: '64px 0px 168px 0px',
     boxShadow: 'none',
     backgroundColor: 'inherit',
   },
