@@ -27,7 +27,6 @@ function IndexPage() {
     return (
         <div className={classes.indexPage}>
             <div className={classes.navbar}>
-                <Topbar/>
             </div>
             <Grid container className={classes.pageContent}>
                 <Grid item xl={3} lg={3} sm={3}>

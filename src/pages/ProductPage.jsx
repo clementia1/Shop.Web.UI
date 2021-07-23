@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         margin: 'auto',
+        marginBottom: '20vh',
         [theme.breakpoints.up('sm')]: {
             maxWidth: '80vw',
             flexDirection: 'row',
@@ -54,6 +55,11 @@ const useStyles = makeStyles((theme) => ({
     },
     headlines: {
         margin: '0px 24px',
+    },
+    buy: {
+        margin: '32px 0px 48px 0px',
+        width: 200,
+        height: 48,
     }
 }));
 
@@ -79,6 +85,9 @@ function ProductPage() {
                     <Typography variant="h3">{product.name}</Typography>
                     <Typography className={classes.price} variant="h4">{product.price} UAH</Typography>
                     <Typography className={classes.weight} variant="h5">{product.weight}g</Typography>
+                    <Button className={classes.buy} variant="contained" color="secondary">
+                        Buy
+                    </Button>
                 </div>
                 <Grid container spacing={3} className={classes.ingredients}>
                     {
@@ -91,9 +100,6 @@ function ProductPage() {
                         })
                     }
                 </Grid>
-                <Button variant="contained" color="secondary">
-                    Buy
-                </Button>
             </div>
         </div>
     );

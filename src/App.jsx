@@ -3,6 +3,8 @@ import {useHistory, useLocation, Switch, Route} from 'react-router-dom';
 import {AuthProvider} from 'oidc-react';
 import {createTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import {orange, purple, green} from '@material-ui/core/colors';
+import {CssBaseline} from '@material-ui/core';
+import Topbar from './containers/Topbar.jsx';
 import IndexPage from "./pages/IndexPage.jsx";
 import ProductPage from './pages/ProductPage.jsx';
 import './scss/app.scss';
@@ -16,7 +18,7 @@ const theme = createTheme({
             main: green[800]
         },
         background: {
-            default: '#f3f4f9'
+            default: '#fafafa', // #f3f4f9
         }
     },
     typography: {
@@ -60,7 +62,9 @@ function App() {
             scope='openid profile website.com'
             autoSignIn={false}>
             <ThemeProvider theme={theme}>
+                <CssBaseline />
                 <div className={classes.app}>
+                    <Topbar/>
                     <Switch>
                         <Route exact path="/">
                             <IndexPage/>
