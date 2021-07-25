@@ -1,4 +1,3 @@
-const webpack = require("webpack");
 const { merge } = require('webpack-merge');
 const path = require("path");
 const debugConfig = require("./debug");
@@ -30,12 +29,6 @@ module.exports = merge(debugConfig, {
         ]
     },
     plugins: [
-        new webpack.EnvironmentPlugin({
-            CLIENT_ID: 'pkce_client',
-            AUTHORITY: 'http://168.62.49.228/auth',
-            REDIRECT_URI: 'http://168.62.49.228',
-            PIZZA_API_URI: 'http://168.62.49.228/pizza'
-        }),
         new CompressionPlugin({
             filename: '[path][base].br',
             algorithm: 'brotliCompress',

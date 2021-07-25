@@ -7,6 +7,7 @@ import {CssBaseline} from '@material-ui/core';
 import Topbar from './containers/Topbar.jsx';
 import IndexPage from "./pages/IndexPage.jsx";
 import ProductPage from './pages/ProductPage.jsx';
+import { CLIENT_ID, AUTHORITY, REDIRECT_URI } from './config.js';
 import './scss/app.scss';
 
 const theme = createTheme({
@@ -55,9 +56,9 @@ function App() {
             onSignIn={() => {
                 history.replace(location.pathname);
             }}
-            authority={process.env.AUTHORITY}
-            clientId={process.env.CLIENT_ID}
-            redirectUri={process.env.REDIRECT_URI}
+            authority={AUTHORITY}
+            clientId={CLIENT_ID}
+            redirectUri={REDIRECT_URI}
             response_type='code'
             scope='openid profile website.com'
             autoSignIn={false}>

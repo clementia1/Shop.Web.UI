@@ -5,6 +5,7 @@ import {Grid} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import ProductCard from "../components/ProductCard";
 import { useCatalogueStore } from "../stores/catalogueStore.js";
+import { PIZZA_API_URI } from "../config";
 
 const useStyles = makeStyles((theme) => ({
     catalogue: {
@@ -30,7 +31,7 @@ function Catalogue() {
     const { products, setProducts } = useCatalogueStore();
 
     useEffect(async () => {
-        const response = await axios.get(`${process.env.PIZZA_API_URI}/getbypage?page=1&size=10`);
+        const response = await axios.get(`${PIZZA_API_URI}/getbypage?page=1&size=10`);
         setProducts(response.data.pizza);
     }, []);
 

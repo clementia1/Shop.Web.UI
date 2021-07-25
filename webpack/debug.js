@@ -1,11 +1,9 @@
-const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 let BUILD_DIR = path.resolve(__dirname, '../build');
-let APP_DIR = path.resolve(__dirname, '../src');
 
 module.exports = {
     mode: "development",
@@ -53,12 +51,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.EnvironmentPlugin({
-            CLIENT_ID: 'pkce_client',
-            AUTHORITY: 'http://localhost:5000',
-            REDIRECT_URI: 'http://localhost:9000',
-            PIZZA_API_URI: 'http://168.62.49.228/pizza'
-        }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html',
