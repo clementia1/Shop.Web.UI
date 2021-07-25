@@ -1,38 +1,18 @@
 import React, { useContext } from "react";
 import { makeAutoObservable, action, observable, computed } from "mobx";
-
-const cartStore2 = observable({
-    cartProducts: [{}],
-    setProducts: action((products) => {
-        cartStore.cartProducts = products;
-    }),
-    addProduct: action((product, amount = 1) => {
-        let productRecord = {
-             product,
-             amount,
-        };
-        cartStore.cartProducts.push(productRecord);
-    }),
-    removeProduct: action((product) => {
-        cartStore.cartProducts.filter(item => item.product != product);
-    }),
-    emptyCart: action(() => {
-        cartStore.cartProducts = [];
-    }),
-    getProductsCount: computed(() => {
-        return cartStore.cartProducts.length;
-    })
-})
+import cartService from "../services/cartService";
 
 class CartStore {
     cartProducts = [];
 
     constructor() {
-        makeAutoObservable(this)
+        makeAutoObservable(this);
     }
 
     addProduct(product, amount = 1) {
-        this.cartProducts.push({ product, amount })
+        let item = { product, amount };
+        this.cartProducts.push(item);
+        cartService.add(item);
     }
 
     get productsCount() {
