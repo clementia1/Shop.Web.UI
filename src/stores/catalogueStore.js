@@ -1,21 +1,22 @@
 import React, { useContext } from "react";
-import axios from 'axios';
-import { action, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 
-const catalogueStore = observable({
-    products: [],
-    setProducts: action((products) => {
-        catalogueStore.products = products;
-    }),
-    addProduct: action((product) => {
-        catalogueStore.setProducts([product, ...catalogueStore.products]);
-    }),
-    getProductBySlug: action(async (slug) => {
-        let response = await axios.get(`${process.env.PIZZA_API_URI}/getbyslug?slug=${slug}`);
-        return response.data.pizza
-    })
-})
+class CatalogueStore {
+    products = [];
 
-const catalogueStoreContext = React.createContext(catalogueStore);
+    constructor() {
+        makeAutoObservable(this);
+    }
+
+    setProducts(products) {
+        this.products = products
+    }
+
+    addProduct(product) {
+        this.products.push(product)
+    }
+}
+
+const catalogueStoreContext = React.createContext(new CatalogueStore);
 
 export const useCatalogueStore = () => useContext(catalogueStoreContext);

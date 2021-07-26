@@ -4,7 +4,7 @@ import { AppBar, Toolbar, IconButton, InputBase, Badge } from '@material-ui/core
 import SearchIcon from '@material-ui/icons/Search';
 import UserMenu from './UserMenu';
 import LoginButton from '../components/LoginButton';
-import CartButton from '../components/CartButton';
+import CartMenu from './CartMenu';
 import { useAuth } from 'oidc-react';
 
 const useStyles = makeStyles((theme) => ({
@@ -87,7 +87,7 @@ export default function Topbar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <CartButton/>
+            <CartMenu/>
             { auth.userData == null ? <LoginButton/> : <UserMenu/>}
           </div>
         </Toolbar>

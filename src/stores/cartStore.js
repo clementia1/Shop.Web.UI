@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { makeAutoObservable, action, observable, computed } from "mobx";
+import { makeAutoObservable } from "mobx";
 import cartService from "../services/cartService";
 
 class CartStore {
@@ -12,7 +12,11 @@ class CartStore {
     addProduct(product, amount = 1) {
         let item = { product, amount };
         this.cartProducts.push(item);
-        cartService.add(item);
+        //cartService.add(item);
+    }
+
+    get products() {
+        return this.cartProducts;
     }
 
     get productsCount() {
@@ -21,5 +25,5 @@ class CartStore {
 }
 
 const cartStoreContext = React.createContext(new CartStore());
-export const CartStoreProvider = cartStoreContext.Provider;
+
 export const useCartStore = () => useContext(cartStoreContext);

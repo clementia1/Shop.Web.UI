@@ -16,12 +16,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function CartButton() {
+function CartButton({ handleClick }) {
     const classes = useStyles();
     const cartStore = useCartStore();
 
 	return (
-        <IconButton className={classes.cart} aria-label="login">
+        <IconButton onClick={handleClick} className={classes.cart} aria-label="login">
             <Badge badgeContent={cartStore.productsCount} color="secondary">
                 <SvgIcon
                     className={classes.icon}
