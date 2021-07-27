@@ -19,9 +19,13 @@ class CatalogueStore {
     }
 
     async getByPage(page, size) {
-        let response = await catalogueService.getByPage(page, size)
-        this.products = response.pizza
-        this.pagesCount = response.totalPages
+        let response = await catalogueService.getByPage(page, size);
+        this.setProducts(response.pizza);
+        this.setPageCount(response.totalPages);
+    }
+
+    setPageCount(count) {
+        this.pagesCount = count
     }
 
     setProducts(products) {

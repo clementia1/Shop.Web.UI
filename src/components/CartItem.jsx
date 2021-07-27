@@ -33,7 +33,7 @@ function CartItem(props) {
             <Typography className={classes.flexItem}>{props.product.name}</Typography>
             <Typography className={classes.flexItem}>{props.product.amount} pcs</Typography>
             <Typography className={classes.flexItem}>{cartStore.calcProductPrice(props.product.name)} UAH</Typography>
-            <IconButton onClick={() => cartStore.removeProduct(props.product.name)} aria-label="delete">
+            <IconButton onClick={() => cartStore.removeProduct(props.product.id)} aria-label="delete">
                 <DeleteIcon />
             </IconButton>
         </div>

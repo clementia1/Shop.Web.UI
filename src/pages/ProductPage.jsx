@@ -98,7 +98,7 @@ function ProductPage() {
                     : <Skeleton variant="rect" className={classes.imageContainer} height={400} />
                 }
             </Grid>
-            <Grid item constainer xl={6} lg={6} md={6} sm={6} className={classes.content}>
+            <Grid item container xl={6} lg={6} md={6} sm={6} className={classes.content}>
                 <div className={classes.headlines}>
                     <Typography component="div" variant="h3">
                         {product.name ? product.name : <Skeleton />}
@@ -113,7 +113,7 @@ function ProductPage() {
                         ? (
                             <Button 
                                 className={classes.buy}
-                                disable={cartStore.loadingState}
+                                disabled={cartStore.loadingState}
                                 size="large"
                                 variant="contained"
                                 color="secondary"

@@ -18,9 +18,9 @@ function CartPopper({ open, anchorEl, products }) {
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
               <Paper>
-                {products.map(item => {
+                {products.map((item, i) => {
                     return (
-                        <CartItem product={item}/>
+                        <CartItem product={item} key={i}/>
                     )
                 })}                
               </Paper>
