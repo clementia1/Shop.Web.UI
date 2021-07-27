@@ -8,6 +8,7 @@ import {
     Typography,
     Link,
 } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontSize: "1.5rem",
+        fontWeight: 600,
         color: 'white',
     },
     price: {
@@ -50,26 +52,29 @@ const useStyles = makeStyles((theme) => ({
 function ProductCard(props) {
     const classes = useStyles();
 
-    return (
-        <Link component={RouterLink} underline="none" to={`${props.data.slug}`}>
-            <Card className={classes.root} elevation={0}>
-                
-                <CardMedia
-                    className={classes.media}
-                    image={props.data.previewImageUrl}
-                    title={props.data.name}>
-                <CardContent className={classes.content}>
-                    <Typography className={classes.title} gutterBottom variant="h5" component="h2">
-                        {props.data.name}
-                    </Typography>
-                    <Typography className={classes.price} variant="body2" component="p">
-                        ₴ {props.data.price}
-                    </Typography>
-                </CardContent>
-                </CardMedia>
-            </Card>
-        </Link>
-    );
+    if (props.data.previewImageUrl) {
+        return (
+            <Link component={RouterLink} underline="none" to={`${props.data.slug}`}>
+                <Card className={classes.root} elevation={0}>                    
+                    <CardMedia
+                        className={classes.media}
+                        image={props.data.previewImageUrl}
+                        title={props.data.name}>
+                        <CardContent className={classes.content}>
+                            <Typography className={classes.title} gutterBottom variant="h5" component="h2">
+                                {props.data.name}
+                            </Typography>
+                            <Typography className={classes.price} variant="body2" component="p">
+                                ₴ {props.data.price}
+                            </Typography>
+                        </CardContent>
+                    </CardMedia>
+                </Card>
+            </Link>
+        )
+    } else {
+        return <Skeleton className={classes.root} variant="rect" width={'auto'} height={275} />
+    }
 }
 
 export default ProductCard;

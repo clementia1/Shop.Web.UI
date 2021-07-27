@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import CartButton from '../components/CartButton';
 import CartPopper from './CartPopper';
 import { useCartStore } from '../stores/cartStore';
@@ -21,4 +22,4 @@ function CartMenu() {
     )
 }
 
-export default CartMenu;
+export default observer(CartMenu);

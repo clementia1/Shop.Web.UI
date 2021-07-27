@@ -18,7 +18,7 @@ function UserMenu() {
     return (
         <>
             <UserMenuButton handleClick={handleClick} userData={auth.userData}/>
-            <UserMenuContent anchorEl={anchorEl} handleClose={handleClose} signOut={auth.signOut}/>
+            <UserMenuContent anchorEl={anchorEl} handleClose={handleClose} signOut={auth.signOutRedirect}/>
         </>
     )
 }

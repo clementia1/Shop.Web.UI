@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useParams } from 'react-router-dom';
 import { Grid, Button, Typography } from '@material-ui/core';
@@ -113,6 +113,7 @@ function ProductPage() {
                         ? (
                             <Button 
                                 className={classes.buy}
+                                disable={cartStore.loadingState}
                                 size="large"
                                 variant="contained"
                                 color="secondary"

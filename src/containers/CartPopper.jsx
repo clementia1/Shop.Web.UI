@@ -1,10 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Popper, Typography, Grid, Button, Fade, Paper } from '@material-ui/core';
+import { Popper, Fade, Paper } from '@material-ui/core';
+import CartItem from '../components/CartItem';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-    },
     typography: {
       padding: theme.spacing(2),
     },
@@ -12,15 +11,17 @@ const useStyles = makeStyles((theme) => ({
   
 function CartPopper({ open, anchorEl, products }) {
     const classes = useStyles();
-  
+
     return (
-      <div className={classes.root}>
+      <div>
         <Popper open={open} anchorEl={anchorEl} placement={'bottom'} transition>
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
               <Paper>
                 {products.map(item => {
-                    return <Typography className={classes.typography}>{item.product.name}</Typography>
+                    return (
+                        <CartItem product={item}/>
+                    )
                 })}                
               </Paper>
             </Fade>

@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import {useHistory, useLocation, Switch, Route} from 'react-router-dom';
-import {AuthProvider} from 'oidc-react';
+import { AuthProvider, UserManager } from 'oidc-react';
+import { WebStorageStateStore } from 'oidc-client';
 import {createTheme, makeStyles, ThemeProvider} from '@material-ui/core/styles';
 import {orange, purple, green} from '@material-ui/core/colors';
 import {CssBaseline} from '@material-ui/core';
 import Topbar from './containers/Topbar.jsx';
 import IndexPage from "./pages/IndexPage.jsx";
 import ProductPage from './pages/ProductPage.jsx';
-import { CLIENT_ID, AUTHORITY, REDIRECT_URI } from './config.js';
+import { CLIENT_ID, AUTHORITY, REDIRECT_URI, POSTLOGOUT_REDIRECT_URI } from './config.js';
 import './scss/app.scss';
 
 const theme = createTheme({
@@ -40,9 +41,23 @@ const theme = createTheme({
     }
 });
 
+const userManager = new UserManager({
+    userStore: new WebStorageStateStore({ store: window.localStorage }),
+    authority: AUTHORITY,
+    client_id: CLIENT_ID,
+    redirect_uri: REDIRECT_URI,
+    silent_redirect_uri: REDIRECT_URI,
+    post_logout_redirect_uri: REDIRECT_URI,
+    response_type: 'code',
+    scope: 'openid profile website.com',
+    loadUserInfo: true,
+    automaticSilentRenew: true,
+  });
+
 const useStyles = makeStyles((theme) => ({
     app: {
-        background: theme.palette.background.default
+        background: theme.palette.background.default,
+        paddingBottom: 200
     }
 }));
 
@@ -56,11 +71,7 @@ function App() {
             onSignIn={() => {
                 history.replace(location.pathname);
             }}
-            authority={AUTHORITY}
-            clientId={CLIENT_ID}
-            redirectUri={REDIRECT_URI}
-            response_type='code'
-            scope='openid profile website.com'
+            userManager={userManager}
             autoSignIn={false}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />

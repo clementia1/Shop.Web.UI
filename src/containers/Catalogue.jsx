@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 import { observer } from "mobx-react-lite";
-import axios from "axios";
-import {Grid} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
+import { Pagination } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core/styles';
 import ProductCard from "../components/ProductCard";
 import { useCatalogueStore } from "../stores/catalogueStore.js";
-import { PIZZA_API_URI } from "../config";
 
 const useStyles = makeStyles((theme) => ({
     catalogue: {
@@ -28,12 +27,17 @@ const useStyles = makeStyles((theme) => ({
 
 function Catalogue() {
     const classes = useStyles();
+    const [page, setPage] = React.useState(1);
+    const [pageSize, setPageSize] = React.useState(6);
     const catalogueStore = useCatalogueStore();
 
-    useEffect(async () => {
-        const response = await axios.get(`${PIZZA_API_URI}/getbypage?page=1&size=10`);
-        catalogueStore.setProducts(response.data.pizza);
-    }, []);
+    useEffect(() => {
+        catalogueStore.getByPage(page, pageSize);
+    }, [page, pageSize]);
+
+    const handlePage = (event, value) => {
+        setPage(value);
+    };
 
     return (
         <div className={classes.catalogue}>
@@ -46,6 +50,7 @@ function Catalogue() {
                     )
                 })}
             </Grid>
+            <Pagination count={catalogueStore.pagesCount} page={page} onChange={handlePage} />
         </div>
     );
 }

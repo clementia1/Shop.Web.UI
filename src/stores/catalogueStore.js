@@ -1,11 +1,27 @@
 import React, { useContext } from "react";
 import { makeAutoObservable } from "mobx";
+import catalogueService from "../services/catalogueService";
 
 class CatalogueStore {
-    products = [];
+    products = [{}, {}, {}, {}, {}, {}];
+    pagesCount = 0;
 
     constructor() {
-        makeAutoObservable(this);
+        makeAutoObservable(this);        
+    }
+
+    get products() {
+        return this.products;
+    }
+
+    get pagesCount() {
+        return this.pagesCount
+    }
+
+    async getByPage(page, size) {
+        let response = await catalogueService.getByPage(page, size)
+        this.products = response.pizza
+        this.pagesCount = response.totalPages
     }
 
     setProducts(products) {
