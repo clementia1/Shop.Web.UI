@@ -11,8 +11,9 @@ function CartMenu() {
     const cartStore = useCartStore();
     const auth = useAuth();
 
-    useEffect(() => {
-        cartStore.fetchProducts(auth.userData?.profile?.sub)
+    useEffect(async () => {
+        let user = await auth.userManager.getUser();
+        cartStore.fetchProducts(user.profile.sub)
     }, []);
 
     const handleClick = (event) => {
