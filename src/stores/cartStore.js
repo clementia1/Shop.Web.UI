@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { makeAutoObservable } from "mobx";
-import CartService from "../services/cartService";
+import cartService from "../services/cartService";
+import localAuthService from "../services/localAuthService";
 
 class CartStore {
     cartProducts = [];
@@ -10,11 +11,12 @@ class CartStore {
         makeAutoObservable(this);
     }
 
-    async addProduct(product, amount = 1) {
+    async addProduct(product, userId, amount = 1) {
+        userId ??= localAuthService.getId();
         let item = { ...product, amount };
         this.setIsLoading(true);
 
-        let result = await CartService.getInstance().addProduct(item);
+        let result = await cartService.add(item, userId);
 
         if (result !== 200) {
             this.setIsLoading(false);
@@ -33,13 +35,15 @@ class CartStore {
         this.setIsLoading(false);
     }
 
-    async fetchProducts() {
-        let products = await CartService.getInstance().getProducts();
+    async fetchProducts(userId) {
+        userId ??= localAuthService.getId();
+        let products = await cartService.get(userId);
         this.setProducts(products)
     }
 
-    async removeProduct(productId) {
-        let result = await CartService.getInstance().deleteProduct(productId);
+    async removeProduct(productId, userId) {
+        userId ??= localAuthService.getId();
+        let result = await cartService.delete(productId, userId);
 
         if (result !== 200) return;
 

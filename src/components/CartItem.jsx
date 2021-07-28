@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, Button, IconButton } from '@material-ui/core';
+import { useAuth } from 'oidc-react';
+import { Typography, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { observer } from 'mobx-react-lite';
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CartItem(props) {
     const classes = useStyles();
+    const auth = useAuth();
     const cartStore = useCartStore();
 
     return (
@@ -33,7 +35,7 @@ function CartItem(props) {
             <Typography className={classes.flexItem}>{props.product.name}</Typography>
             <Typography className={classes.flexItem}>{props.product.amount} pcs</Typography>
             <Typography className={classes.flexItem}>{cartStore.calcProductPrice(props.product.name)} UAH</Typography>
-            <IconButton onClick={() => cartStore.removeProduct(props.product.id)} aria-label="delete">
+            <IconButton onClick={() => cartStore.removeProduct(props.product.id, auth.userData?.profile?.sub)} aria-label="delete">
                 <DeleteIcon />
             </IconButton>
         </div>

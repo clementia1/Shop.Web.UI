@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useParams } from 'react-router-dom';
-import { Grid, Button, Typography } from '@material-ui/core';
+import { useAuth } from "oidc-react";
+import { Grid, Button, Typography, CircularProgress } from '@material-ui/core';
 import { Skeleton } from "@material-ui/lab";
 import { makeStyles } from '@material-ui/core/styles';
 import { useProductStore } from "../stores/productStore";
@@ -75,11 +76,17 @@ const useStyles = makeStyles((theme) => ({
         margin: '32px 0px 48px 0px',
         width: 200,
         height: 48,
+    },
+    icon: {
+        width: 22,
+        height: 22,
+        marginRight: 8,
     }
 }));
 
 function ProductPage() {
     const params = useParams();
+    const auth = useAuth();
     const { product, getProductBySlug, resetProduct } = useProductStore();
     const cartStore = useCartStore();
     const classes = useStyles();
@@ -101,13 +108,13 @@ function ProductPage() {
             <Grid item container xl={6} lg={6} md={6} sm={6} className={classes.content}>
                 <div className={classes.headlines}>
                     <Typography component="div" variant="h3">
-                        {product.name ? product.name : <Skeleton />}
+                        {product.name ? product.name : <Skeleton width={300}/>}
                     </Typography>
                     <Typography className={classes.price} component="div" variant="h4">
-                        {product.price ? `${product.price} UAH` : <Skeleton/>}
+                        {product.price ? `${product.price} UAH` : <Skeleton width={300}/>}
                     </Typography>
                     <Typography className={classes.weight} component="div" variant="h4">
-                        {product.weight ? `${product.weight}g` : <Skeleton/>}
+                        {product.weight ? `${product.weight}g` : <Skeleton width={300}/>}
                     </Typography>
                     {product.name
                         ? (
@@ -117,9 +124,9 @@ function ProductPage() {
                                 size="large"
                                 variant="contained"
                                 color="secondary"
-                                onClick={() => cartStore.addProduct(product)}
-                                startIcon={<ShoppingCartOutlinedIcon/>}
+                                onClick={() => cartStore.addProduct(product, auth.userData?.profile?.sub)}
                             >
+                                {cartStore.loadingState ? <CircularProgress size={26} className={classes.icon}/> : <ShoppingCartOutlinedIcon className={classes.icon}/>}
                                 Buy
                             </Button>
                         )
