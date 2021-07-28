@@ -126,7 +126,7 @@ function ProductPage() {
                                 color="secondary"
                                 onClick={() => cartStore.addProduct(product, auth.userData?.profile?.sub)}
                             >
-                                {cartStore.loadingState ? <CircularProgress size={26} className={classes.icon}/> : <ShoppingCartOutlinedIcon className={classes.icon}/>}
+                                {cartStore.loadingState ? <CircularProgress size={22} className={classes.icon}/> : <ShoppingCartOutlinedIcon className={classes.icon}/>}
                                 Buy
                             </Button>
                         )
