@@ -5,7 +5,7 @@ import { Grid, Button, Typography } from '@material-ui/core';
 import { Skeleton } from "@material-ui/lab";
 import { makeStyles } from '@material-ui/core/styles';
 import { useProductStore } from "../stores/productStore";
-import { CartStoreProvider, useCartStore } from "../stores/cartStore";
+import { useCartStore } from "../stores/cartStore";
 import IngredientCard from "../components/IngredientCard";
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 

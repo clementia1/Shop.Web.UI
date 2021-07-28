@@ -2,7 +2,6 @@ import React from "react";
 import {Grid} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Catalogue from "../containers/Catalogue.jsx";
-import Topbar from "../containers/Topbar.jsx";
 import Sidebar from "../containers/Sidebar.jsx";
 
 const useStyles = makeStyles((theme) => ({

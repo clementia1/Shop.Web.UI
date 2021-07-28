@@ -72,9 +72,9 @@ function ProductCard(props) {
                 </Card>
             </Link>
         )
-    } else {
-        return <Skeleton className={classes.root} variant="rect" width={'auto'} height={275} />
-    }
+    } 
+    
+    return <Skeleton className={classes.root} variant="rect" width={'auto'} height={275} />
 }
 
 export default ProductCard;
