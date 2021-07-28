@@ -13,7 +13,7 @@ function CartMenu() {
 
     useEffect(async () => {
         let user = await auth.userManager.getUser();
-        cartStore.fetchProducts(user.profile.sub)
+        cartStore.fetchProducts(user?.profile?.sub)
     }, []);
 
     const handleClick = (event) => {
